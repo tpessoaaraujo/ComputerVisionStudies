@@ -18,11 +18,16 @@ while True:
     result = hands.process(frame_rgb)
     
     if result.multi_hand_landmarks:
-        for hand_landmarks in result.multi_hand_landmarks:
-            mp_drawing.draw_landmarks(frame, hand_landmarks, mp_hands.HAND_CONNECTIONS)
+        try:
+            for hand_landmarks in result.multi_hand_landmarks:
+                mp_drawing.draw_landmarks(frame, hand_landmarks, mp_hands.HAND_CONNECTIONS)
+        except:
+            pass
     
     cv2.imshow("Webcam", frame)
     
-    key = cv2.waitKey(1)
-    if key == 27:
+    if cv2.waitKey(10) & 0xFF == 27:
         break
+
+cam.release()
+cv2.destroyAllWindows()
